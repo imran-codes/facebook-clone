@@ -41,7 +41,7 @@ function Header() {
       </div>
       <div className="header__right">
         <div className="header__info">
-          <Avatar />
+          <Avatar src = "https://media-exp3.licdn.com/dms/image/C5603AQFl8S3jchuyoQ/profile-displayphoto-shrink_100_100/0/1565099021456?e=1629936000&v=beta&t=LuHMnuH8QvxmVfRJzsUN6pxWRVBqgEysx0SpR8l1V-Y" />
           <h4>Imran Hussain</h4>
           <IconButton>
             <AddIcon />

@@ -13,7 +13,7 @@ function Sidebar() {
   return (
     <div>
       <div className="sidebar">
-        <SideRow src="" title="Imran" />
+        <SideRow src="https://media-exp3.licdn.com/dms/image/C5603AQFl8S3jchuyoQ/profile-displayphoto-shrink_100_100/0/1565099021456?e=1629936000&v=beta&t=LuHMnuH8QvxmVfRJzsUN6pxWRVBqgEysx0SpR8l1V-Y" title="Imran" />
         <SideRow Icon={LocalHospitalIcon} title="COVID-19 Information Center" />
         <SideRow Icon={EmojiFlagsIcon} title="Pages" />
         <SideRow Icon={PeopleIcon} title="Friends" />
