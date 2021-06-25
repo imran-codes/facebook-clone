@@ -5,9 +5,12 @@ import Sidebar from './Sidebar';
 import Feed from './Feed';
 import Widgets from './Widgets'
 import Login from './Login';
+import { useStateValue } from './StateProvider'
 
 function App() {
-  const user = null;
+  // import the store state ie get the user from the store and then the condional will allow either the login page or signed in state
+  const [{user}, dispatch] = useStateValue();
+
   return (
     <div className="App">
       {!user ? <Login/> : (
