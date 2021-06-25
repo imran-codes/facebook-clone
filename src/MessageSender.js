@@ -4,13 +4,26 @@ import { Avatar } from '@material-ui/core'
 import VideocamIcon from '@material-ui/icons/Videocam';
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon';
+import { useStateValue } from './StateProvider'
+import firebase from 'firebase';
+import db from './firebase'
 
 function MessageSender() {
+  const [{user}, dispatch] = useStateValue();
   const [input, setInput] = useState('');
   const [imageUrl, setImageUrl] = useState('');
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    //push posts to db by adding object
+    db.collection("posts").add({
+      message: input,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      profilePic: user.photoURL,
+      username: user.displayName,
+      image: imageUrl,
+    })
 
     //reset states for inputs
     setInput('');
@@ -21,11 +34,11 @@ function MessageSender() {
   return (
     <div className = "messageSender">
       <div className="messageSender__top">
-        <Avatar />
+        <Avatar src = {user.photoURL} />
         <form>
           <input 
           className = "messageSender__input" 
-          placeholder = {`What's on your mind?`} 
+          placeholder = {`What's on your mind. ${user.displayName}?`} 
           value ={input}
           onChange = {e => setInput(e.target.value)} />
           <input 

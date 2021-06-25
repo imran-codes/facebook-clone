@@ -1,16 +1,38 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './Feed.css';
 import StoryReel from './StoryReel';
 import MessageSender from './MessageSender';
 import Post from './Post';
+import db from './firebase'
 
 function Feed() {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    db.collection("posts").orderBy('timestamp', 'desc' ).onSnapshot((snapshot) => {
+      setPosts(snapshot.docs.map((doc) => {
+          return {id: doc.id, data: doc.data() }
+        }))
+    })
+
+}, [])
+
   return (
     <div className="feed">
       <StoryReel />
       <MessageSender />
-      <Post profilePic = "https://www.seo-genius.co.uk/wp-content/uploads/2019/03/PNGTransparent-Logo-1.png" image ="https://images.unsplash.com/photo-1593642634402-b0eb5e2eebc9?ixid=MnwxMjA3fDF8MHxlZGl0b3JpYWwtZmVlZHwxfHx8ZW58MHx8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" username = "imran" timestamp = "timestamp" message ="hello" />
-      <Post profilePic = "https://www.seo-genius.co.uk/wp-content/uploads/2019/03/PNGTransparent-Logo-1.png" image ="https://images.unsplash.com/photo-1624525702008-ad9cb2802f64?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwzMnx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" username = "imran" timestamp = "timestamp" message ="hello" />
+
+      { posts.map((post) => (
+            <Post 
+            key = {post.id}
+            profilePic = {post.data.profilePic} 
+            image = {post.data.image} 
+            postname = {post.data.postname} 
+            timestamp = {post.data.timestamp} 
+            message = {post.data.message}
+            username = {post.data.username} />
+            ))}
+      
     </div>
   )
 }
